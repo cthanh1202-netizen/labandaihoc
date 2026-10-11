@@ -1,78 +1,629 @@
 
-document.addEventListener('DOMContentLoaded',()=>{
-  const career=document.querySelector('#career .countdown');
-  if(career){const panel=document.createElement('div');panel.className='calc-form';panel.style.marginTop='16px';panel.innerHTML='<div class="field"><label for="interestPick">Bạn hứng thú với điều gì nhất?</label><select id="interestPick"><option value="data">Phân tích số liệu, tài chính, kinh doanh</option><option value="tech">Máy tính, công nghệ, lập trình</option><option value="people">Giao tiếp, hỗ trợ và làm việc với con người</option><option value="creative">Sáng tạo, nội dung, thiết kế</option><option value="science">Khoa học, nghiên cứu, giải quyết vấn đề</option></select></div><button class="btn primary" id="careerBtn" type="button" style="margin-top:14px">Gợi ý nhóm ngành ↗</button><div id="careerResult" class="noresult" aria-live="polite">Chọn sở thích rồi bấm để xem nhóm ngành gợi ý.</div><p class="disclaimer">Gợi ý để tham khảo, không phải kết luận nghề nghiệp. Hãy xem thêm chương trình học và trải nghiệm thực tế.</p>';career.parentElement.appendChild(panel);const suggestions={data:['Tài chính – Ngân hàng','Công nghệ tài chính (FinTech)','Phân tích kinh doanh / Khoa học dữ liệu'],tech:['Công nghệ thông tin','Kỹ thuật phần mềm','Hệ thống thông tin'],people:['Quản trị nhân lực','Marketing','Tâm lý học / Công tác xã hội'],creative:['Thiết kế đồ họa','Truyền thông đa phương tiện','Marketing / Sáng tạo nội dung'],science:['Khoa học dữ liệu','Khoa học cơ bản','Kỹ thuật / Công nghệ']};document.getElementById('careerBtn').addEventListener('click',()=>{const items=suggestions[document.getElementById('interestPick').value];const out=document.getElementById('careerResult');out.className='';out.style.cssText='margin-top:14px;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--paper)';out.innerHTML='<strong>Nhóm ngành bạn có thể tìm hiểu</strong><ul style="margin:8px 0 0;padding-left:20px">'+items.map(x=>'<li style="margin:5px 0">'+x+'</li>').join('')+'</ul>';});}
-  const countdown=document.querySelector('#countdown .countdown');
-  if(countdown){const controls=document.createElement('div');controls.style.cssText='grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:end;margin-top:8px';controls.innerHTML='<div class="field"><label for="examDatePick">Chọn ngày thi của bạn</label><input id="examDatePick" type="date"></div><button class="btn primary" id="startCountdown" type="button">Cập nhật đếm ngược</button><div id="examDateNote" class="disclaimer" style="grid-column:1/-1;margin-top:0">Chưa đặt ngày thi. Hãy nhập ngày theo lịch chính thức khi được công bố.</div>';countdown.appendChild(controls);const boxes=countdown.querySelectorAll('.timer .timebox b');let ticker=null;document.getElementById('startCountdown').addEventListener('click',()=>{const value=document.getElementById('examDatePick').value;if(!value){document.getElementById('examDateNote').textContent='Hãy chọn ngày thi trước nhé.';return;}const target=new Date(value+'T00:00:00');if(Number.isNaN(target.getTime())||target.getTime()<=Date.now()){document.getElementById('examDateNote').textContent='Ngày thi cần nằm trong tương lai.';return;}document.getElementById('examDateNote').textContent='Đang đếm đến '+target.toLocaleDateString('vi-VN')+'. Đây là ngày bạn tự chọn, không phải lịch thi được xác nhận.';if(ticker)clearInterval(ticker);const update=()=>{let ms=target.getTime()-Date.now();if(ms<=0){boxes.forEach(b=>b.textContent='0');document.getElementById('examDateNote').textContent='Đã đến ngày bạn chọn.';clearInterval(ticker);return;}const days=Math.floor(ms/86400000);ms%=86400000;const hours=Math.floor(ms/3600000);ms%=3600000;const minutes=Math.floor(ms/60000);boxes[0].textContent=days.toLocaleString('vi-VN');boxes[1].textContent=String(hours).padStart(2,'0');boxes[2].textContent=String(minutes).padStart(2,'0');};update();ticker=setInterval(update,1000);});}
-});
+'use strict';
 
-document.addEventListener('DOMContentLoaded',()=>{
-  const timer=document.querySelector('#countdown .timer');
-  if(!timer || timer.querySelector('[data-seconds]')) return;
-  const box=document.createElement('div');
-  box.className='timebox';
-  box.innerHTML='<b data-seconds>—</b><span>Giây</span>';
-  box.querySelector('b').setAttribute('data-seconds','');
-  timer.appendChild(box);
-  const seconds=box.querySelector('b');
-  const start=document.getElementById('startCountdown');
-  if(!start) return;
-  let secondTicker=null;
-  start.addEventListener('click',()=>{
-    const value=document.getElementById('examDatePick')?.value;
-    if(!value) return;
-    const target=new Date(value+'T00:00:00').getTime();
-    if(!Number.isFinite(target) || target<=Date.now()) return;
-    if(secondTicker) clearInterval(secondTicker);
-    const updateSeconds=()=>{
-      const ms=target-Date.now();
-      if(ms<=0){seconds.textContent='00';clearInterval(secondTicker);return;}
-      seconds.textContent=String(Math.floor((ms%60000)/1000)).padStart(2,'0');
-    };
-    updateSeconds();secondTicker=setInterval(updateSeconds,250);
-  });
-});
+const $ = id => document.getElementById(id);
 
-const $=id=>document.getElementById(id);let toastTimer;function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2600)}
-const themeToggle=$('themeToggle');function applyTheme(isDark){document.body.classList.toggle('dark',isDark);themeToggle.setAttribute('aria-pressed',String(isDark));$('themeIcon').textContent=isDark?'☀':'☾';$('themeLabel').textContent=isDark?'Giao diện sáng':'Giao diện tối'}themeToggle.addEventListener('click',()=>applyTheme(!document.body.classList.contains('dark')));applyTheme(false);
-const demoCutoffs=[
-{school:'Đại học Kinh tế Quốc dân',aliases:['neu','kinh te quoc dan'],major:'Thương mại điện tử',code:'7340122',score:28.62,year:'2026',method:'Điểm thi tốt nghiệp THPT',combinations:'A00, A01, D01, D07',combinationSource:'https://neu.edu.vn/wp-content/uploads/2025/12/Tom-tat-thong-tin-tuyen-sinh-nam-2026-DHCQ-1.pdf',source:'https://cms.baochinhphu.vn/diem-chuan-dai-hoc-2026-muc-diem-chuan-cao-nhat-cua-hoc-vien-ngan-hang-la-2661-diem-102260809112553111.htm'},
-{school:'Đại học Kinh tế Quốc dân',aliases:['neu','kinh te quoc dan'],major:'Logistics và Quản lý chuỗi cung ứng',code:'7510605',score:28.53,year:'2026',method:'Điểm thi tốt nghiệp THPT',combinations:'A00, A01, D01, D07',combinationSource:'https://neu.edu.vn/wp-content/uploads/2025/12/Tom-tat-thong-tin-tuyen-sinh-nam-2026-DHCQ-1.pdf',source:'https://cms.baochinhphu.vn/diem-chuan-dai-hoc-2026-muc-diem-chuan-cao-nhat-cua-hoc-vien-ngan-hang-la-2661-diem-102260809112553111.htm'},
-{school:'Đại học Kinh tế Quốc dân',aliases:['neu','kinh te quoc dan'],major:'Kinh doanh quốc tế',code:'7340120',score:28.50,year:'2026',method:'Điểm thi tốt nghiệp THPT',combinations:'A00, A01, D01, D07',combinationSource:'https://neu.edu.vn/wp-content/uploads/2025/12/Tom-tat-thong-tin-tuyen-sinh-nam-2026-DHCQ-1.pdf',source:'https://cms.baochinhphu.vn/diem-chuan-dai-hoc-2026-muc-diem-chuan-cao-nhat-cua-hoc-vien-ngan-hang-la-2661-diem-102260809112553111.htm'},
-{school:'Đại học Kinh tế Quốc dân',aliases:['neu','kinh te quoc dan'],major:'Kinh tế quốc tế',code:'7310106',score:28.30,year:'2026',method:'Điểm thi tốt nghiệp THPT',combinations:'A00, A01, D01, D07',combinationSource:'https://neu.edu.vn/wp-content/uploads/2025/12/Tom-tat-thong-tin-tuyen-sinh-nam-2026-DHCQ-1.pdf',source:'https://cms.baochinhphu.vn/diem-chuan-dai-hoc-2026-muc-diem-chuan-cao-nhat-cua-hoc-vien-ngan-hang-la-2661-diem-102260809112553111.htm'},
-{school:'Đại học Bách khoa Hà Nội',aliases:['hust','bach khoa ha noi'],major:'Khoa học dữ liệu và Trí tuệ nhân tạo (chương trình tiên tiến)',code:'IT-E10',score:29.54,year:'2026',method:'Điểm thi tốt nghiệp THPT',combinations:'A00, A01, K01',combinationSource:'https://ts.hust.edu.vn/index.php/tin-tuc/thong-tin-tuyen-sinh-dai-hoc-chinh-quy-nam-2026',source:'https://ts.hust.edu.vn/index.php/tin-tuc/diem-chuan-dai-hoc-bach-khoa-ha-noi-nam-2026'},
-{school:'Đại học Bách khoa Hà Nội',aliases:['hust','bach khoa ha noi'],major:'Khoa học máy tính',code:'IT1',score:29.27,year:'2026',method:'Điểm thi tốt nghiệp THPT',combinations:'A00, A01, K01',combinationSource:'https://ts.hust.edu.vn/index.php/tin-tuc/thong-tin-tuyen-sinh-dai-hoc-chinh-quy-nam-2026',source:'https://ts.hust.edu.vn/index.php/tin-tuc/diem-chuan-dai-hoc-bach-khoa-ha-noi-nam-2026'},
-{school:'Đại học Kinh tế Quốc dân',aliases:['neu','kinh te quoc dan'],major:'Thương mại điện tử',code:'7340122',score:28.83,year:'2025',method:'Điểm thi tốt nghiệp THPT',combinations:'A00, A01, D01, D07',combinationSource:'https://www.neu.edu.vn/Resources/Docs/SubDomain/khoamarketing/2025/Tuy%E1%BB%83n%20sinh/T%C3%B3m%20t%E1%BA%AFt%20Th%C3%B4ng%20tin%20tuy%E1%BB%83n%20sinh%20%C4%91%E1%BA%A1i%20h%E1%BB%8Dc%20ch%C3%ADnh%20quy%20n%C4%83m%202025_final.pdf',source:'https://fit.neu.edu.vn/post/admission-cutoff-scores-for-the-2025-regular-university-intake-of-neu'},
-{school:'Đại học Kinh tế Quốc dân',aliases:['neu','kinh te quoc dan'],major:'Logistics và Quản lý chuỗi cung ứng',code:'7510605',score:28.61,year:'2025',method:'Điểm thi tốt nghiệp THPT',combinations:'A00, A01, D01, D07',combinationSource:'https://www.neu.edu.vn/Resources/Docs/SubDomain/khoamarketing/2025/Tuy%E1%BB%83n%20sinh/T%C3%B3m%20t%E1%BA%AFt%20Th%C3%B4ng%20tin%20tuy%E1%BB%83n%20sinh%20%C4%91%E1%BA%A1i%20h%E1%BB%8Dc%20ch%C3%ADnh%20quy%20n%C4%83m%202025_final.pdf',source:'https://fit.neu.edu.vn/post/admission-cutoff-scores-for-the-2025-regular-university-intake-of-neu'},
-{school:'Đại học Kinh tế Quốc dân',aliases:['neu','kinh te quoc dan'],major:'Kinh doanh quốc tế',code:'7340120',score:28.60,year:'2025',method:'Điểm thi tốt nghiệp THPT',combinations:'A00, A01, D01, D07',combinationSource:'https://www.neu.edu.vn/Resources/Docs/SubDomain/khoamarketing/2025/Tuy%E1%BB%83n%20sinh/T%C3%B3m%20t%E1%BA%AFt%20Th%C3%B4ng%20tin%20tuy%E1%BB%83n%20sinh%20%C4%91%E1%BA%A1i%20h%E1%BB%8Dc%20ch%C3%ADnh%20quy%20n%C4%83m%202025_final.pdf',source:'https://fit.neu.edu.vn/post/admission-cutoff-scores-for-the-2025-regular-university-intake-of-neu'},
-{school:'Đại học Bách khoa Hà Nội',aliases:['hust','bach khoa ha noi'],major:'Khoa học dữ liệu và Trí tuệ nhân tạo (chương trình tiên tiến)',code:'IT-E10',score:29.39,year:'2025',method:'Điểm thi tốt nghiệp THPT',combinations:'A00, A01, K01',combinationSource:'https://soict.hust.edu.vn/thong-tin-tuyen-sinh-2025.html',source:'https://www.hust.edu.vn/vi/news/hoat-dong-chung/dai-hoc-bach-khoa-ha-noi-cong-bo-diem-chuan-xet-tuyen-dai-hoc-nam-2025-655575.html'},
-{school:'Đại học Bách khoa Hà Nội',aliases:['hust','bach khoa ha noi'],major:'Khoa học máy tính',code:'IT1',score:29.19,year:'2025',method:'Điểm thi tốt nghiệp THPT',combinations:'A00, A01, K01',combinationSource:'https://soict.hust.edu.vn/thong-tin-tuyen-sinh-2025.html',source:'https://www.hust.edu.vn/vi/news/hoat-dong-chung/dai-hoc-bach-khoa-ha-noi-cong-bo-diem-chuan-xet-tuyen-dai-hoc-nam-2025-655575.html'},
-{school:'Đại học Bách khoa Hà Nội',aliases:['hust','bach khoa ha noi'],major:'Chương trình TROY-BA',code:'TROY-BA',score:19.00,year:'2025',method:'Điểm thi tốt nghiệp THPT',combinations:'D01, A00, A01, K01',combinationSource:'https://hust.edu.vn/uploads/sys/tuyen-sinh/2025_06/qd-phe-duyet-thong-tin-tuyen-sinh-nam-2025-10.06.2025_1.pdf',source:'https://www.hust.edu.vn/vi/news/hoat-dong-chung/dai-hoc-bach-khoa-ha-noi-cong-bo-diem-chuan-xet-tuyen-dai-hoc-nam-2025-655575.html'}
+/* =========================
+   1. DỮ LIỆU ĐIỂM CHUẨN DEMO
+   =========================
+   Chỉ thêm điểm khi có nguồn đáng tin cậy.
+   Những năm/phương thức chưa có dữ liệu sẽ báo chưa có kết quả.
+*/
+const demoCutoffs = [
+  {
+    school: 'Đại học Kinh tế Quốc dân',
+    aliases: ['neu', 'kinh te quoc dan'],
+    logo: 'NEU',
+    sector: 'business',
+    major: 'Thương mại điện tử',
+    code: '7340122',
+    score: 28.62,
+    year: '2026',
+    method: 'Điểm thi tốt nghiệp THPT',
+    combinations: 'A00, A01, D01, D07',
+    combinationSource: 'https://neu.edu.vn/',
+    source: 'https://neu.edu.vn/'
+  },
+  {
+    school: 'Đại học Kinh tế Quốc dân',
+    aliases: ['neu', 'kinh te quoc dan'],
+    logo: 'NEU',
+    sector: 'business',
+    major: 'Logistics và Quản lý chuỗi cung ứng',
+    code: '7510605',
+    score: 28.53,
+    year: '2026',
+    method: 'Điểm thi tốt nghiệp THPT',
+    combinations: 'A00, A01, D01, D07',
+    combinationSource: 'https://neu.edu.vn/',
+    source: 'https://neu.edu.vn/'
+  },
+  {
+    school: 'Đại học Kinh tế Quốc dân',
+    aliases: ['neu', 'kinh te quoc dan'],
+    logo: 'NEU',
+    sector: 'business',
+    major: 'Kinh doanh quốc tế',
+    code: '7340120',
+    score: 28.50,
+    year: '2026',
+    method: 'Điểm thi tốt nghiệp THPT',
+    combinations: 'A00, A01, D01, D07',
+    combinationSource: 'https://neu.edu.vn/',
+    source: 'https://neu.edu.vn/'
+  },
+  {
+    school: 'Đại học Kinh tế Quốc dân',
+    aliases: ['neu', 'kinh te quoc dan'],
+    logo: 'NEU',
+    sector: 'business',
+    major: 'Kinh tế quốc tế',
+    code: '7310106',
+    score: 28.30,
+    year: '2026',
+    method: 'Điểm thi tốt nghiệp THPT',
+    combinations: 'A00, A01, D01, D07',
+    combinationSource: 'https://neu.edu.vn/',
+    source: 'https://neu.edu.vn/'
+  },
+  {
+    school: 'Đại học Bách khoa Hà Nội',
+    aliases: ['hust', 'bach khoa ha noi'],
+    logo: 'HUST',
+    sector: 'technology',
+    major: 'Khoa học dữ liệu và Trí tuệ nhân tạo (chương trình tiên tiến)',
+    code: 'IT-E10',
+    score: 29.54,
+    year: '2026',
+    method: 'Điểm thi tốt nghiệp THPT',
+    combinations: 'A00, A01, K01',
+    combinationSource: 'https://ts.hust.edu.vn/',
+    source: 'https://ts.hust.edu.vn/'
+  },
+  {
+    school: 'Đại học Bách khoa Hà Nội',
+    aliases: ['hust', 'bach khoa ha noi'],
+    logo: 'HUST',
+    sector: 'technology',
+    major: 'Khoa học máy tính',
+    code: 'IT1',
+    score: 29.27,
+    year: '2026',
+    method: 'Điểm thi tốt nghiệp THPT',
+    combinations: 'A00, A01, K01',
+    combinationSource: 'https://ts.hust.edu.vn/',
+    source: 'https://ts.hust.edu.vn/'
+  },
+  {
+    school: 'Đại học Kinh tế Quốc dân',
+    aliases: ['neu', 'kinh te quoc dan'],
+    logo: 'NEU',
+    sector: 'business',
+    major: 'Thương mại điện tử',
+    code: '7340122',
+    score: 28.83,
+    year: '2025',
+    method: 'Điểm thi tốt nghiệp THPT',
+    combinations: 'A00, A01, D01, D07',
+    combinationSource: 'https://neu.edu.vn/',
+    source: 'https://fit.neu.edu.vn/'
+  },
+  {
+    school: 'Đại học Kinh tế Quốc dân',
+    aliases: ['neu', 'kinh te quoc dan'],
+    logo: 'NEU',
+    sector: 'business',
+    major: 'Logistics và Quản lý chuỗi cung ứng',
+    code: '7510605',
+    score: 28.61,
+    year: '2025',
+    method: 'Điểm thi tốt nghiệp THPT',
+    combinations: 'A00, A01, D01, D07',
+    combinationSource: 'https://neu.edu.vn/',
+    source: 'https://fit.neu.edu.vn/'
+  },
+  {
+    school: 'Đại học Kinh tế Quốc dân',
+    aliases: ['neu', 'kinh te quoc dan'],
+    logo: 'NEU',
+    sector: 'business',
+    major: 'Kinh doanh quốc tế',
+    code: '7340120',
+    score: 28.60,
+    year: '2025',
+    method: 'Điểm thi tốt nghiệp THPT',
+    combinations: 'A00, A01, D01, D07',
+    combinationSource: 'https://neu.edu.vn/',
+    source: 'https://fit.neu.edu.vn/'
+  },
+  {
+    school: 'Đại học Bách khoa Hà Nội',
+    aliases: ['hust', 'bach khoa ha noi'],
+    logo: 'HUST',
+    sector: 'technology',
+    major: 'Khoa học dữ liệu và Trí tuệ nhân tạo (chương trình tiên tiến)',
+    code: 'IT-E10',
+    score: 29.39,
+    year: '2025',
+    method: 'Điểm thi tốt nghiệp THPT',
+    combinations: 'A00, A01, K01',
+    combinationSource: 'https://soict.hust.edu.vn/',
+    source: 'https://www.hust.edu.vn/'
+  },
+  {
+    school: 'Đại học Bách khoa Hà Nội',
+    aliases: ['hust', 'bach khoa ha noi'],
+    logo: 'HUST',
+    sector: 'technology',
+    major: 'Khoa học máy tính',
+    code: 'IT1',
+    score: 29.19,
+    year: '2025',
+    method: 'Điểm thi tốt nghiệp THPT',
+    combinations: 'A00, A01, K01',
+    combinationSource: 'https://soict.hust.edu.vn/',
+    source: 'https://www.hust.edu.vn/'
+  },
+  {
+    school: 'Đại học Bách khoa Hà Nội',
+    aliases: ['hust', 'bach khoa ha noi'],
+    logo: 'HUST',
+    sector: 'technology',
+    major: 'Chương trình TROY-BA',
+    code: 'TROY-BA',
+    score: 19.00,
+    year: '2025',
+    method: 'Điểm thi tốt nghiệp THPT',
+    combinations: 'D01, A00, A01, K01',
+    combinationSource: 'https://www.hust.edu.vn/',
+    source: 'https://www.hust.edu.vn/'
+  }
 ];
 
-function normalizeLookup(value){return value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase().trim();}
-const sectorRow=document.createElement('div');sectorRow.className='filters';sectorRow.style.cssText='grid-template-columns:1fr;margin-top:12px';sectorRow.innerHTML='<div class="field"><label for="sectorFilter">Khối ngành</label><select id="sectorFilter"><option value="all">Tất cả khối ngành</option><option value="business">Kinh tế – Kinh doanh – Quản lý</option><option value="technology">Công nghệ thông tin – Máy tính</option><option value="engineering">Kỹ thuật – Công nghệ</option><option value="health">Y dược – Sức khỏe</option><option value="education">Sư phạm – Giáo dục</option><option value="law">Luật</option><option value="languages">Ngôn ngữ</option><option value="social">Khoa học xã hội – Nhân văn</option><option value="science">Khoa học tự nhiên</option><option value="agriculture">Nông – Lâm – Ngư nghiệp</option><option value="arts">Nghệ thuật – Thiết kế</option></select></div>';
-const methodRow=$('method').closest('.filters');methodRow.after(sectorRow);
-function sectorFor(item){if(item.school.includes('Kinh tế Quốc dân'))return 'business';if(item.school.includes('Bách khoa'))return 'technology';return 'other';}
-$('searchBtn').addEventListener('click',()=>{const school=$('schoolSearch').value.trim(),major=$('majorSearch').value.trim(),year=$('year').value,method=$('method').value,sector=$('sectorFilter').value;const title=school||major?`${school||'Tất cả trường'}${major?' · '+major:''}`:'Toàn bộ trường đại học';$('resultTitle').textContent=title;$('resultCount').textContent=`Năm ${year} · ${method==='all'?'Tất cả phương thức':method} · ${$('sectorFilter').selectedOptions[0].textContent}`;const s=normalizeLookup(school),m=normalizeLookup(major);const found=demoCutoffs.filter(item=>item.year===year&&(method==='all'||method===item.method)&&(sector==='all'||sectorFor(item)===sector)&&(!s||normalizeLookup(item.school).includes(s)||item.aliases.some(alias=>normalizeLookup(alias).includes(s)||s.includes(normalizeLookup(alias))))&&(!m||normalizeLookup(item.major).includes(m)||normalizeLookup(item.code).includes(m)));if(!found.length){$('results').innerHTML='<div class="noresult">Chưa có bản ghi demo đã xác minh phù hợp với bộ lọc này. Dữ liệu hiện có chỉ gồm một số ngành năm 2025 của NEU (khối Kinh tế – Kinh doanh) và Bách khoa Hà Nội (khối Công nghệ thông tin); các khối, năm và phương thức khác chưa được nạp.</div>';return;}$('results').innerHTML=found.map(item=>`<article class="result"><div class="school-icon ${item.school.includes('Bách khoa')?'orange':''}">${item.school.includes('Bách khoa')?'HUST':'NEU'}</div><div><h3>${item.school} — ${item.major}</h3><p>Mã ngành/chương trình: ${item.code} · ${item.year} · ${item.method}</p><p><strong>Tổ hợp môn: ${item.combinations}</strong> · <a href="${item.combinationSource}" target="_blank" rel="noopener noreferrer" style="color:var(--blue);font-weight:800;text-decoration:underline">Nguồn tổ hợp ↗</a></p><p><a href="${item.source}" target="_blank" rel="noopener noreferrer" style="color:var(--blue);font-weight:800;text-decoration:underline">Xem nguồn điểm chuẩn ↗</a></p></div><div class="score">${item.score.toFixed(2)}<small>điểm chuẩn</small></div></article>`).join('');});
-$('calcBtn').addEventListener('click',()=>{const ids=['math','literature','english'];const vals=ids.map(id=>$(id).value.trim());if(vals.some(v=>v==='')){toast('M nhập đủ điểm của cả 3 môn nhé.');return}const nums=vals.map(Number);if(nums.some(n=>!Number.isFinite(n)||n<0||n>10)){toast('Mỗi môn phải nằm trong khoảng 0–10.');return}const total=nums.reduce((a,b)=>a+b,0);$('totalScore').textContent=total.toLocaleString('vi-VN',{maximumFractionDigits:2})+' / 30';$('calcNote').textContent='Đã cộng điểm 3 môn. Chưa bao gồm điểm ưu tiên, điểm cộng hoặc hệ số môn của từng trường.';});
-document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const target=document.querySelector(a.getAttribute('href'));if(target&&a.getAttribute('href')==='#tools'&&a.closest('.tool')){e.preventDefault();toast('Đây là bản demo; công cụ sẽ được kết nối dữ liệu ở bước tiếp theo.')}}));
-const comboConfig={A00:['Toán','Vật lí','Hóa học'],A01:['Toán','Vật lí','Tiếng Anh'],B00:['Toán','Hóa học','Sinh học'],C00:['Ngữ văn','Lịch sử','Địa lí'],C01:['Toán','Ngữ văn','Vật lí'],C02:['Toán','Ngữ văn','Hóa học'],D01:['Toán','Ngữ văn','Tiếng Anh'],D07:['Toán','Hóa học','Tiếng Anh'],D14:['Ngữ văn','Lịch sử','Tiếng Anh'],D15:['Ngữ văn','Địa lí','Tiếng Anh']};
-const calcForm=document.querySelector('.calc-form');const subjectGrid=document.querySelector('.subject-grid');
-subjectGrid.insertAdjacentHTML('beforebegin','<div class="calc-extra"><div class="field"><label for="comboSelect">Chọn tổ hợp xét tuyển</label><select id="comboSelect"><option value="A00">A00 · Toán – Lí – Hóa</option><option value="A01">A01 · Toán – Lí – Anh</option><option value="B00">B00 · Toán – Hóa – Sinh</option><option value="C00">C00 · Văn – Sử – Địa</option><option value="C01">C01 · Toán – Văn – Lí</option><option value="C02">C02 · Toán – Văn – Hóa</option><option value="D01">D01 · Toán – Văn – Anh</option><option value="D07">D07 · Toán – Hóa – Anh</option><option value="D14">D14 · Văn – Sử – Anh</option><option value="D15">D15 · Văn – Địa – Anh</option></select></div><div class="field"><label for="priorityArea">Khu vực ưu tiên</label><select id="priorityArea"><option value="0">KV3 · Không ưu tiên (0 điểm)</option><option value="0.25">KV2 · 0,25 điểm</option><option value="0.5">KV2-NT · 0,5 điểm</option><option value="0.75">KV1 · 0,75 điểm</option></select></div><div class="field"><label for="bonusPoints">Điểm cộng thêm</label><input id="bonusPoints" type="number" min="0" max="10" step="0.01" value="0" placeholder="Theo đề án trường"></div></div>');
+/* =========================
+   2. HÀM DÙNG CHUNG
+   ========================= */
+function normalize(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/Đ/g, 'D')
+    .toLowerCase()
+    .trim();
+}
 
-const calcStyle=document.createElement('style');calcStyle.textContent='.calc-extra{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:18px}.calc-extra .field label{display:block;font-size:11px;font-weight:800;color:#617188;margin-bottom:6px}.calc-extra select,.calc-extra input{width:100%;height:43px;border:1px solid var(--line);border-radius:10px;padding:0 10px;background:var(--card);color:var(--ink);font:inherit;font-size:12px}.calc-breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.calc-breakdown div{padding:10px;border:1px solid var(--line);border-radius:10px;font-size:11px;color:var(--muted)}.calc-breakdown strong{display:block;font-size:15px;color:var(--ink);margin-top:3px}@media(max-width:650px){.calc-extra{grid-template-columns:1fr}.calc-breakdown{grid-template-columns:1fr 1fr}}';document.head.appendChild(calcStyle);
-function updateComboLabels(){const names=comboConfig[$('comboSelect').value];['math','literature','english'].forEach((id,i)=>{const label=document.querySelector('label[for="'+id+'"]');label.textContent=names[i];$(id).placeholder='0–10';});$('calcNote').textContent='Tổ hợp '+$('comboSelect').value+': '+names.join(' – ')+'. Chọn khu vực và nhập điểm cộng theo đề án của trường nếu có.';}
-$('comboSelect').addEventListener('change',updateComboLabels);updateComboLabels();
-// Khôi phục tên khu vực ưu tiên quen thuộc và gợi ý trường khi đang nhập.
-const priorityArea=$('priorityArea');
-priorityArea.innerHTML='<option value="0.75">KV1 · 0,75 điểm</option><option value="0.5">KV2-NT · 0,5 điểm</option><option value="0.25">KV2 · 0,25 điểm</option><option value="0">KV3 · 0 điểm</option><option value="unknown">Chưa xác định khu vực</option>';
-const schoolInput=$('schoolSearch');
-const schoolField=schoolInput.closest('.field');
-const schoolNames=['Đại học Kinh tế Quốc dân','Đại học Quốc gia Hà Nội','Trường Quốc tế - ĐHQGHN','Đại học Bách khoa Hà Nội','Đại học Ngoại thương','Đại học Kinh tế - ĐHQGHN','Trường Đại học Thương mại','Học viện Tài chính','Học viện Ngân hàng','Đại học Hà Nội','Đại học Giao thông vận tải','Đại học Xây dựng Hà Nội','Đại học Công nghiệp Hà Nội','Đại học Phenikaa','Đại học FPT','Đại học Kinh tế TP.HCM','Đại học Quốc gia TP.HCM','Đại học Bách khoa TP.HCM','Đại học Cần Thơ','Đại học Đà Nẵng','Đại học Duy Tân','Đại học Vinh','Học viện Công nghệ Bưu chính Viễn thông','Đại học Thủy lợi','Đại học Luật Hà Nội'];
-const suggestionBox=document.createElement('div');suggestionBox.id='schoolSuggestions';suggestionBox.setAttribute('role','listbox');suggestionBox.hidden=true;schoolField.style.position='relative';schoolField.appendChild(suggestionBox);
-const suggestionStyle=document.createElement('style');suggestionStyle.textContent='#schoolSuggestions{position:absolute;z-index:50;top:100%;left:0;right:0;margin-top:5px;max-height:260px;overflow:auto;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 30px #10243d20;padding:5px}#schoolSuggestions[hidden]{display:none}#schoolSuggestions button{display:block;width:100%;border:0;border-radius:8px;background:transparent;color:inherit;text-align:left;padding:11px 10px;font-size:13px;cursor:pointer}#schoolSuggestions button:hover,#schoolSuggestions button:focus{background:#e9efff;outline:none;color:#2444c7}body.dark #schoolSuggestions button:hover,body.dark #schoolSuggestions button:focus{background:#223451;color:#fff}@media(max-width:650px){#schoolSuggestions{max-height:220px}#schoolSuggestions button{padding:12px 10px;font-size:14px}}';document.head.appendChild(suggestionStyle);
-function normalizeSchoolName(value){return value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase();}
-function renderSchoolSuggestions(){const query=schoolInput.value.trim();suggestionBox.replaceChildren();if(!query){suggestionBox.hidden=true;return;}const normalized=normalizeSchoolName(query);const matches=schoolNames.filter(name=>normalizeSchoolName(name).includes(normalized)).slice(0,8);if(!matches.length){suggestionBox.hidden=true;return;}matches.forEach((name,index)=>{const option=document.createElement('button');option.type='button';option.setAttribute('role','option');option.textContent=name;option.addEventListener('mousedown',event=>event.preventDefault());option.addEventListener('click',()=>{schoolInput.value=name;suggestionBox.hidden=true;schoolInput.focus();});suggestionBox.appendChild(option);});suggestionBox.hidden=false;}
-schoolInput.addEventListener('input',renderSchoolSuggestions);schoolInput.addEventListener('focus',renderSchoolSuggestions);schoolInput.addEventListener('keydown',event=>{const options=[...suggestionBox.querySelectorAll('button')];if(event.key==='Escape'){suggestionBox.hidden=true;}else if(event.key==='ArrowDown'&&options.length){event.preventDefault();options[0].focus();}else if(event.key==='Enter'&&!suggestionBox.hidden&&options.length){event.preventDefault();options[0].click();}});document.addEventListener('click',event=>{if(!schoolField.contains(event.target))suggestionBox.hidden=true;});
- $('calcBtn').addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();const vals=['math','literature','english'].map(id=>$(id).value.trim());if(vals.some(v=>v==='')){toast('M nhập đủ điểm của cả 3 môn nhé.');return}const nums=vals.map(Number);if(nums.some(n=>!Number.isFinite(n)||n<0||n>10)){toast('Mỗi môn phải nằm trong khoảng 0–10.');return}if($('priorityArea').value==='unknown'){toast('Chọn KV ưu tiên chính xác hoặc kiểm tra khu vực trước nhé.');return}const raw=nums.reduce((a,b)=>a+b,0),priorityMax=Number($('priorityArea').value),bonus=Number($('bonusPoints').value||0);if(!Number.isFinite(bonus)||bonus<0||bonus>10){toast('Điểm cộng phải từ 0 đến 10.');return}const priority=raw<=22.5?priorityMax:priorityMax*(30-raw)/7.5;const final=Math.min(30,raw+priority+bonus);$('totalScore').textContent=final.toLocaleString('vi-VN',{maximumFractionDigits:2})+' / 30';$('calcNote').innerHTML='Tổ hợp '+$('comboSelect').value+' · Tổng 3 môn: <b>'+raw.toLocaleString('vi-VN',{maximumFractionDigits:2})+'</b>. Điểm ưu tiên ước tính: <b>'+priority.toLocaleString('vi-VN',{maximumFractionDigits:2})+'</b>; điểm cộng đã nhập: <b>'+bonus.toLocaleString('vi-VN',{maximumFractionDigits:2})+'</b>. Tổng tham khảo đã giới hạn tối đa 30 điểm.';let old=$('calcBreakdown');if(old)old.remove();$('calcNote').insertAdjacentHTML('afterend','<div class="calc-breakdown" id="calcBreakdown"><div>Tổng 3 môn<strong>'+raw.toLocaleString('vi-VN',{maximumFractionDigits:2})+'</strong></div><div>Ưu tiên KV<strong>+'+priority.toLocaleString('vi-VN',{maximumFractionDigits:2})+'</strong></div><div>Điểm cộng<strong>+'+bonus.toLocaleString('vi-VN',{maximumFractionDigits:2})+'</strong></div></div>');},true);
+function escapeHTML(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[char]);
+}
+
+let toastTimer;
+
+function toast(message) {
+  const el = $('toast');
+  if (!el) return;
+  el.textContent = message;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2600);
+}
+
+function formatScore(value) {
+  return Number(value).toLocaleString('vi-VN', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
+
+/* =========================
+   3. GIAO DIỆN SÁNG / TỐI
+   ========================= */
+const themeToggle = $('themeToggle');
+
+function applyTheme(isDark) {
+  document.body.classList.toggle('dark', isDark);
+  $('themeIcon').textContent = isDark ? '☀' : '☾';
+  $('themeLabel').textContent = isDark ? 'Giao diện sáng' : 'Giao diện tối';
+  themeToggle.setAttribute('aria-pressed', String(isDark));
+}
+
+themeToggle.addEventListener('click', () => {
+  applyTheme(!document.body.classList.contains('dark'));
+});
+
+applyTheme(false);
+
+/* =========================
+   4. TỰ ĐỘNG GỢI Ý TÊN TRƯỜNG
+   ========================= */
+const schoolNames = [
+  'Đại học Kinh tế Quốc dân',
+  'Đại học Quốc gia Hà Nội',
+  'Trường Quốc tế - ĐHQGHN',
+  'Đại học Bách khoa Hà Nội',
+  'Đại học Ngoại thương',
+  'Đại học Kinh tế - ĐHQGHN',
+  'Trường Đại học Thương mại',
+  'Học viện Tài chính',
+  'Học viện Ngân hàng',
+  'Đại học Hà Nội',
+  'Đại học Giao thông vận tải',
+  'Đại học Xây dựng Hà Nội',
+  'Đại học Công nghiệp Hà Nội',
+  'Đại học Phenikaa',
+  'Đại học FPT',
+  'Đại học Kinh tế TP.HCM',
+  'Đại học Quốc gia TP.HCM',
+  'Đại học Bách khoa TP.HCM',
+  'Đại học Cần Thơ',
+  'Đại học Đà Nẵng',
+  'Đại học Duy Tân',
+  'Đại học Vinh',
+  'Học viện Công nghệ Bưu chính Viễn thông',
+  'Đại học Thủy lợi',
+  'Đại học Luật Hà Nội'
+];
+
+const schoolInput = $('schoolSearch');
+const schoolField = schoolInput.closest('.field');
+const suggestionBox = document.createElement('div');
+
+suggestionBox.id = 'schoolSuggestions';
+suggestionBox.setAttribute('role', 'listbox');
+suggestionBox.hidden = true;
+schoolField.style.position = 'relative';
+schoolField.appendChild(suggestionBox);
+
+function renderSchoolSuggestions() {
+  const query = normalize(schoolInput.value);
+  suggestionBox.replaceChildren();
+
+  if (!query) {
+    suggestionBox.hidden = true;
+    return;
+  }
+
+  const matches = schoolNames
+    .filter(name => normalize(name).includes(query))
+    .slice(0, 8);
+
+  if (!matches.length) {
+    suggestionBox.hidden = true;
+    return;
+  }
+
+  matches.forEach(name => {
+    const option = document.createElement('button');
+    option.type = 'button';
+    option.setAttribute('role', 'option');
+    option.textContent = name;
+
+    option.addEventListener('mousedown', event => event.preventDefault());
+
+    option.addEventListener('click', () => {
+      schoolInput.value = name;
+      suggestionBox.hidden = true;
+      schoolInput.focus();
+    });
+
+    suggestionBox.appendChild(option);
+  });
+
+  suggestionBox.hidden = false;
+}
+
+schoolInput.addEventListener('input', renderSchoolSuggestions);
+schoolInput.addEventListener('focus', renderSchoolSuggestions);
+
+schoolInput.addEventListener('keydown', event => {
+  const options = [...suggestionBox.querySelectorAll('button')];
+
+  if (event.key === 'Escape') {
+    suggestionBox.hidden = true;
+  } else if (event.key === 'ArrowDown' && options.length) {
+    event.preventDefault();
+    options[0].focus();
+  } else if (event.key === 'Enter' && !suggestionBox.hidden && options.length) {
+    event.preventDefault();
+    options[0].click();
+  }
+});
+
+document.addEventListener('click', event => {
+  if (!schoolField.contains(event.target)) {
+    suggestionBox.hidden = true;
+  }
+});
+
+/* =========================
+   5. TRA CỨU ĐIỂM CHUẨN
+   ========================= */
+function getSchoolLogo(item) {
+  const logo = item.logo || 'ĐH';
+  const className = logo === 'NEU' ? 'neu' :
+    logo === 'HUST' ? 'hust' : 'vnu';
+
+  return `<div class="school-logo ${className}" aria-label="${escapeHTML(item.school)}">${escapeHTML(logo)}</div>`;
+}
+
+function getCutoffResults() {
+  const schoolQuery = normalize($('schoolSearch').value);
+  const majorQuery = normalize($('majorSearch').value);
+  const year = $('year').value;
+  const method = $('method').value;
+  const sector = $('sectorFilter').value;
+
+  return demoCutoffs.filter(item => {
+    const matchesYear = item.year === year;
+    const matchesMethod = method === 'all' || item.method === method;
+    const matchesSector = sector === 'all' || item.sector === sector;
+
+    const schoolText = normalize(item.school + ' ' + item.aliases.join(' '));
+    const matchesSchool = !schoolQuery || schoolText.includes(schoolQuery);
+
+    const majorText = normalize(item.major + ' ' + item.code);
+    const matchesMajor = !majorQuery || majorText.includes(majorQuery);
+
+    return matchesYear && matchesMethod && matchesSector &&
+      matchesSchool && matchesMajor;
+  });
+}
+
+function renderCutoffs() {
+  const school = $('schoolSearch').value.trim();
+  const major = $('majorSearch').value.trim();
+  const year = $('year').value;
+  const method = $('method').value;
+  const sector = $('sectorFilter');
+
+  $('resultTitle').textContent =
+    school || major
+      ? `${school || 'Tất cả trường'}${major ? ' · ' + major : ''}`
+      : 'Kết quả tra cứu điểm chuẩn';
+
+  $('resultCount').textContent =
+    `Năm ${year} · ${method === 'all' ? 'Tất cả phương thức' : method}`;
+
+  const results = getCutoffResults();
+  const container = $('results');
+
+  if (!results.length) {
+    container.innerHTML = `
+      <div class="noresult">
+        <strong>Chưa có dữ liệu phù hợp.</strong><br>
+        Bản demo hiện có một số ngành của NEU và Bách khoa Hà Nội,
+        chủ yếu theo phương thức điểm thi tốt nghiệp THPT năm 2025–2026.
+        Năm 2024, các phương thức khác và các trường/ngành chưa được nạp.
+        Hãy đổi bộ lọc hoặc bổ sung dữ liệu có nguồn chính thức.
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = results.map(item => `
+    <article class="result">
+      ${getSchoolLogo(item)}
+      <div>
+        <h3>${escapeHTML(item.school)} — ${escapeHTML(item.major)}</h3>
+        <p>Mã ngành/chương trình: <strong>${escapeHTML(item.code)}</strong></p>
+        <p>Năm ${escapeHTML(item.year)} · ${escapeHTML(item.method)}</p>
+        <p><strong>Tổ hợp: ${escapeHTML(item.combinations)}</strong></p>
+        <p>
+          <a href="${escapeHTML(item.combinationSource)}" target="_blank" rel="noopener noreferrer">
+            Nguồn thông tin tổ hợp ↗
+          </a>
+          ·
+          <a href="${escapeHTML(item.source)}" target="_blank" rel="noopener noreferrer">
+            Trang nguồn điểm chuẩn ↗
+          </a>
+        </p>
+      </div>
+      <div class="score">
+        ${formatScore(item.score)}
+        <small>điểm demo</small>
+      </div>
+    </article>
+  `).join('');
+}
+
+$('searchBtn').addEventListener('click', renderCutoffs);
+
+['year', 'method', 'sectorFilter'].forEach(id => {
+  $(id).addEventListener('change', renderCutoffs);
+});
+
+$('majorSearch').addEventListener('keydown', event => {
+  if (event.key === 'Enter') renderCutoffs();
+});
+
+schoolInput.addEventListener('keydown', event => {
+  if (event.key === 'Enter' && suggestionBox.hidden) renderCutoffs();
+});
+
+/* =========================
+   6. MÁY TÍNH ĐIỂM TỔ HỢP
+   ========================= */
+const comboConfig = {
+  A00: ['Toán', 'Vật lí', 'Hóa học'],
+  A01: ['Toán', 'Vật lí', 'Tiếng Anh'],
+  B00: ['Toán', 'Hóa học', 'Sinh học'],
+  C00: ['Ngữ văn', 'Lịch sử', 'Địa lí'],
+  C01: ['Toán', 'Ngữ văn', 'Vật lí'],
+  C02: ['Toán', 'Ngữ văn', 'Hóa học'],
+  D01: ['Toán', 'Ngữ văn', 'Tiếng Anh'],
+  D07: ['Toán', 'Hóa học', 'Tiếng Anh'],
+  D14: ['Ngữ văn', 'Lịch sử', 'Tiếng Anh'],
+  D15: ['Ngữ văn', 'Địa lí', 'Tiếng Anh']
+};
+
+const subjectIds = ['subject1', 'subject2', 'subject3'];
+
+function updateComboLabels() {
+  const names = comboConfig[$('comboSelect').value];
+
+  subjectIds.forEach((id, index) => {
+    document.querySelector(`label[for="${id}"]`).textContent = names[index];
+  });
+
+  $('calcNote').textContent =
+    `Tổ hợp ${$('comboSelect').value}: ${names.join(' – ')}. ` +
+    'Nhập điểm từ 0 đến 10 cho từng môn.';
+}
+
+$('comboSelect').addEventListener('change', updateComboLabels);
+updateComboLabels();
+
+$('calcBtn').addEventListener('click', () => {
+  const values = subjectIds.map(id => $(id).value.trim());
+
+  if (values.some(value => value === '')) {
+    toast('Nhập đủ điểm của cả ba môn nhé.');
+    return;
+  }
+
+  const scores = values.map(Number);
+
+  if (scores.some(score => !Number.isFinite(score) || score < 0 || score > 10)) {
+    toast('Mỗi môn phải có điểm từ 0 đến 10.');
+    return;
+  }
+
+  if ($('priorityArea').value === 'unknown') {
+    toast('Hãy xác định khu vực ưu tiên trước khi tính.');
+    return;
+  }
+
+  const bonus = Number($('bonusPoints').value || 0);
+
+  if (!Number.isFinite(bonus) || bonus < 0 || bonus > 10) {
+    toast('Điểm cộng phải nằm trong khoảng 0 đến 10.');
+    return;
+  }
+
+  const raw = scores.reduce((sum, score) => sum + score, 0);
+  const maxPriority = Number($('priorityArea').value);
+
+  // Công thức ước tính cho mục đích tham khảo.
+  // Cần kiểm tra quy chế tuyển sinh áp dụng cho từng năm.
+  const priority = raw <= 22.5
+    ? maxPriority
+    : maxPriority * (30 - raw) / 7.5;
+
+  const total = Math.min(30, raw + priority + bonus);
+
+  $('totalScore').textContent =
+    `${formatScore(total)} / 30`;
+
+  $('calcNote').textContent =
+    `Tổ hợp ${$('comboSelect').value}. Đây là tổng tham khảo, ` +
+    'chưa thay thế công thức chính thức của từng trường.';
+
+  $('calcBreakdown').innerHTML = `
+    <div>Tổng 3 môn<strong>${formatScore(raw)}</strong></div>
+    <div>Ưu tiên ước tính<strong>+${formatScore(priority)}</strong></div>
+    <div>Điểm cộng đã nhập<strong>+${formatScore(bonus)}</strong></div>
+  `;
+});
+
+/* =========================
+   7. GỢI Ý NGÀNH NGHỀ
+   ========================= */
+const careerSuggestions = {
+  data: [
+    'Tài chính – Ngân hàng',
+    'Công nghệ tài chính (FinTech)',
+    'Phân tích kinh doanh / Khoa học dữ liệu'
+  ],
+  tech: [
+    'Công nghệ thông tin',
+    'Kỹ thuật phần mềm',
+    'Hệ thống thông tin'
+  ],
+  people: [
+    'Quản trị nhân lực',
+    'Marketing',
+    'Tâm lý học / Công tác xã hội'
+  ],
+  creative: [
+    'Thiết kế đồ họa',
+    'Truyền thông đa phương tiện',
+    'Marketing / Sáng tạo nội dung'
+  ],
+  science: [
+    'Khoa học dữ liệu',
+    'Khoa học tự nhiên',
+    'Kỹ thuật / Công nghệ'
+  ]
+};
+
+$('careerBtn').addEventListener('click', () => {
+  const items = careerSuggestions[$('interestPick').value];
+
+  $('careerResult').className = 'noresult';
+  $('careerResult').innerHTML =
+    '<strong>Nhóm ngành bạn có thể tìm hiểu</strong><ul>' +
+    items.map(item => `<li>${escapeHTML(item)}</li>`).join('') +
+    '</ul>';
+});
+
+/* =========================
+   8. ĐẾM NGƯỢC NGÀY THI
+   ========================= */
+let countdownInterval = null;
+
+$('startCountdown').addEventListener('click', () => {
+  const value = $('examDatePick').value;
+
+  if (!value) {
+    $('examDateNote').textContent = 'Hãy chọn ngày thi trước nhé.';
+    return;
+  }
+
+  const target = new Date(`${value}T00:00:00`).getTime();
+
+  if (!Number.isFinite(target) || target <= Date.now()) {
+    $('examDateNote').textContent = 'Ngày thi cần nằm trong tương lai.';
+    return;
+  }
+
+  if (countdownInterval) clearInterval(countdownInterval);
+
+  $('examDateNote').textContent =
+    'Đang đếm đến ' + new Date(target).toLocaleDateString('vi-VN') +
+    '. Đây là ngày bạn chọn, hãy đối chiếu với lịch thi chính thức.';
+
+  const updateCountdown = () => {
+    let remaining = target - Date.now();
+
+    if (remaining <= 0) {
+      ['days', 'hours', 'minutes', 'seconds'].forEach(id => {
+        $(id).textContent = '00';
+      });
+      $('examDateNote').textContent = 'Đã đến ngày bạn chọn.';
+      clearInterval(countdownInterval);
+      return;
+    }
+
+    const days = Math.floor(remaining / 86400000);
+    remaining %= 86400000;
+
+    const hours = Math.floor(remaining / 3600000);
+    remaining %= 3600000;
+
+    const minutes = Math.floor(remaining / 60000);
+    const seconds = Math.floor((remaining % 60000) / 1000);
+
+    $('days').textContent = days.toLocaleString('vi-VN');
+    $('hours').textContent = String(hours).padStart(2, '0');
+    $('minutes').textContent = String(minutes).padStart(2, '0');
+    $('seconds').textContent = String(seconds).padStart(2, '0');
+  };
+
+  updateCountdown();
+  countdownInterval = setInterval(updateCountdown, 250);
+});
