@@ -236,3 +236,98 @@ body.dark .lookup-section { background: #101b2f; }
   .timebox { padding: 15px 5px; }
   .footer { padding: 28px 5%; }
 }
+
+/* ===== NAVY ĐEN – MÙA TUYỂN SINH ===== */
+:root {
+  --navy-deep: #071426;
+  --navy-dark: #0b1f3a;
+  --navy-mid: #12345a;
+  --navy-blue: #2563eb;
+  --navy-light: #dbeafe;
+}
+
+/* Dải thông điệp ở đầu trang */
+.hero,
+.hero-banner,
+.season-banner,
+.eyebrow {
+  border-color: rgba(96, 165, 250, 0.25);
+}
+
+.eyebrow {
+  color: #dbeafe;
+  background: linear-gradient(135deg, #071426, #12345a);
+  border: 1px solid rgba(96, 165, 250, 0.35);
+  border-radius: 999px;
+  padding: 9px 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* Nền khu vực đầu trang */
+.hero {
+  background:
+    radial-gradient(ellipse at top right, rgba(37, 99, 235, 0.18), transparent 45%),
+    linear-gradient(135deg, #071426, #0b1f3a);
+  color: #f8fafc;
+  border-radius: 24px;
+}
+
+/* Tiêu đề và mô tả trong hero */
+.hero h1,
+.hero h2,
+.hero p {
+  color: #f8fafc;
+}
+
+.hero p {
+  color: #cbd5e1;
+}
+
+/* Khối cuối trang – luôn có nền navy đen */
+footer {
+  background: linear-gradient(135deg, #050d19, #0b1f3a);
+  color: #e2e8f0;
+  border-top: 1px solid rgba(96, 165, 250, 0.3);
+  padding: 28px 20px;
+  border-radius: 20px 20px 0 0;
+  margin-top: 36px;
+}
+
+footer h2,
+footer h3,
+footer p,
+footer a,
+footer span {
+  color: #e2e8f0;
+}
+
+footer a:hover {
+  color: #60a5fa;
+}
+
+/* Nút và điểm nhấn xanh */
+button,
+.btn,
+.primary-btn {
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+button:hover,
+.btn:hover,
+.primary-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Hiển thị tốt trên điện thoại */
+@media (max-width: 640px) {
+  .hero {
+    border-radius: 18px;
+  }
+
+  footer {
+    border-radius: 16px 16px 0 0;
+    padding: 22px 16px;
+  }
+}
