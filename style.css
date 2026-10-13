@@ -1,39 +1,3 @@
-@media(min-width:761px){#cutoff .table tbody tr{padding:15px 18px}#cutoff .table tbody td:nth-child(2){font-size:17px}}
-/* Thu gọn thẻ và thêm nhận diện trường phía trên danh sách điểm. */
-#cutoff .tablewrap{max-width:820px;margin-left:auto;margin-right:auto}
-#cutoff .table tbody{gap:8px}
-#cutoff .table tbody tr{padding:9px 12px;border-radius:12px;box-shadow:none}
-#cutoff .table tbody td{padding:5px 0;font-size:13px}
-#cutoff .table tbody td:nth-child(2){font-size:15px}
-#cutoff .table tbody td:nth-child(4){font-size:21px}
-#cutoff .school-summary{display:flex;align-items:center;gap:12px;padding:14px 15px;margin:14px 0 8px;background:var(--soft);border:1px solid var(--line);border-radius:14px}
-#cutoff .school-summary img{width:48px;height:48px;flex:0 0 48px;object-fit:contain;padding:4px;background:#fff;border:1px solid var(--line);border-radius:12px}
-#cutoff .school-logo-fallback{width:48px;height:48px;flex:0 0 48px;display:grid;place-items:center;background:#fff;color:#17294d;border:1px solid var(--line);border-radius:12px;font-size:12px;font-weight:900}
-#cutoff .school-summary h3{font-size:15px;line-height:1.35;margin:0 0 4px}
-#cutoff .school-summary p{font-size:12px;line-height:1.45;color:var(--muted);margin:0}
-.school-result-name{display:inline-block;color:var(--muted);font-size:11px;font-weight:750;line-height:1.4;margin-bottom:4px}
-/* Hiển thị mã ngành cùng tên ngành; nguồn gọn và ít chiếm chỗ hơn. */
-#cutoff .table tbody td:first-child{font-size:11px;line-height:1.3;padding-bottom:2px}
-#cutoff .table tbody td:first-child b{display:inline-block;font-size:11px;font-weight:800;color:var(--muted);margin-top:2px}
-#cutoff .table tbody td:nth-child(2){font-size:15px;font-weight:800;line-height:1.4}
-#cutoff .table tbody td:nth-child(5){font-size:10px;line-height:1.35;padding-top:3px;color:var(--muted)}
-#cutoff .table tbody td:nth-child(5)::before{content:'Nguồn: ';font-weight:700;color:var(--muted)}
-#cutoff .table tbody td:nth-child(5) .source{font-size:10px;font-weight:650}
-@media(max-width:760px){#cutoff .table tbody td:first-child b{font-size:10px}#cutoff .table tbody td:nth-child(5),#cutoff .table tbody td:nth-child(5) .source{font-size:10px}}
-@media(max-width:760px){#cutoff .tablewrap{max-width:100%}#cutoff .table tbody tr{padding:9px 11px}#cutoff .school-summary{padding:11px 12px;margin-top:12px}#cutoff .school-summary img,#cutoff .school-logo-fallback{width:42px;height:42px;flex-basis:42px}}
-/* Tên ngành nổi bật hơn; trang chủ nhiều màu nhưng vẫn giữ nhận diện xanh navy/mint. */
-#cutoff .table tbody td:first-child .major-with-code>span:first-child{font-size:18px;font-weight:900;line-height:1.35;letter-spacing:-.35px;color:var(--ink)}
-#cutoff .table tbody td:first-child .major-code-right{font-size:11px!important;padding:4px 7px;border-radius:7px;background:var(--soft);border:1px solid var(--line)}
-@media(max-width:760px){#cutoff .table tbody td:first-child .major-with-code>span:first-child{font-size:17px}}
-.hero{isolation:isolate;background:linear-gradient(120deg,#111f40 0%,#244b78 48%,#5a3f91 100%);box-shadow:0 18px 42px #17294d22}
-.hero::before,.hero::after{content:"";position:absolute;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(1px)}
-.hero::before{width:250px;height:250px;right:15%;top:-145px;background:radial-gradient(circle,#65e2c088 0%,#65e2c000 72%)}
-.hero::after{width:330px;height:330px;right:-100px;bottom:-220px;background:radial-gradient(circle,#f6a6ff77 0%,#f6a6ff00 72%)}
-.hero-art{position:relative;width:190px;height:190px;margin:auto;border-radius:50%;border:1px solid #ffffff38;background:radial-gradient(circle at 35% 30%,#ffffff24,#ffffff05 62%);text-shadow:0 0 32px #65e2c099}
-.hero-art::before,.hero-art::after{content:"";position:absolute;border:1px dashed #ffffff55;border-radius:50%;inset:15px;animation:compass-spin 24s linear infinite}
-.hero-art::after{inset:31px;border-style:solid;border-color:#65e2c066;animation-direction:reverse;animation-duration:32s}
-@keyframes compass-spin{to{transform:rotate(360deg)}}
-.stats .stat{position:relative;overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
 .stats .stat:hover,.toolcard:hover{transform:translateY(-3px);box-shadow:0 12px 28px #17294d15}
 .stats .stat::after{content:"";position:absolute;width:66px;height:66px;right:-24px;top:-25px;border-radius:50%;background:var(--stat-accent,#65e2c0);opacity:.2}
 .stats .stat:nth-child(1){--stat-accent:#63d9ff;border-top:3px solid #63d9ff}
@@ -50,19 +14,20 @@
 @media(prefers-reduced-motion:reduce){.hero-art::before,.hero-art::after{animation:none}.stats .stat,.toolcard{transition:none}}
 
 /* Đặt liên kết nguồn bên phải điểm chuẩn trong cùng một hàng. */
-#cutoff .table tbody td.score-source-row{display:flex!important;align-items:center;justify-content:space-between;gap:12px;border-bottom:0;padding-bottom:2px;}
-#cutoff .table tbody td.score-source-row .score-value{font-size:21px;font-weight:900;color:light-dark(#117a63,#70e4c2);white-space:nowrap;}
-#cutoff .table tbody td.score-source-row .source{font-size:11px;white-space:nowrap;flex:0 0 auto;}
-#cutoff .table tbody td.score-source-row::before{content:none!important;}
+#cutoff .table tbody td.score-source-row{display:flex!important;align-items:center;justify-content:space-between;gap:12px;border-bottom:0;padding-bottom:2px}
+#cutoff .table tbody td.score-source-row .score-value{font-size:21px;font-weight:900;color:light-dark(#117a63,#70e4c2);white-space:nowrap}
+#cutoff .table tbody td.score-source-row .source{font-size:11px;white-space:nowrap;flex:0 0 auto}
+#cutoff .table tbody td.score-source-row::before{content:none!important}
+
 /* Hiện tổ hợp môn đúng vị trí, kẻ đường phân cách rõ giữa các dòng thông tin. */
-#cutoff .table tbody td:nth-child(2)::before{content:'Tổ hợp môn: ';font-size:11px;font-weight:800;color:var(--muted);}
-#cutoff .table tbody td:nth-child(3)::before{content:none!important;}
-#cutoff .table tbody td{border-bottom:1px solid var(--line)!important;padding-top:8px;padding-bottom:8px;}
-#cutoff .table tbody td.score-source-row{border-top:1px solid var(--line)!important;border-bottom:0!important;padding-top:10px;padding-bottom:2px;}
-#cutoff .table tbody tr{border:1px solid var(--line);}
+#cutoff .table tbody td:nth-child(2)::before{content:'Tổ hợp môn: ';font-size:11px;font-weight:800;color:var(--muted)}
+#cutoff .table tbody td:nth-child(3)::before{content:none!important}
+#cutoff .table tbody td{border-bottom:1px solid var(--line)!important;padding-top:8px;padding-bottom:8px}
+#cutoff .table tbody td.score-source-row{border-top:1px solid var(--line)!important;border-bottom:0!important;padding-top:10px;padding-bottom:2px}
+#cutoff .table tbody tr{border:1px solid var(--line)}
 
 /* Logo la bàn dạng vector, kim trắng và đỏ; nguồn nằm trái, điểm nằm phải. */
-.compass svg,.hero-art svg{display:block;width:100%;height:100%;}
+.compass svg,.hero-art svg{display:block;width:100%;height:100%}
 .compass svg{width:30px;height:30px;filter:drop-shadow(0 1px 5px #65e2c055)}
 .hero-art svg{width:145px;height:145px;filter:drop-shadow(0 0 20px #65e2c055)}
 #cutoff .table tbody td.score-source-row{justify-content:space-between}
@@ -70,27 +35,28 @@
 #cutoff .table tbody td.score-source-row .score-value{order:1;margin-left:auto}
 @media(max-width:760px){.hero-art svg{width:115px;height:115px}}
 
-/* Bốn biểu tượng công cụ trên trang chủ: lớn, có nền riêng và hiệu ứng nổi bật. */
-#home .toolcard{padding:22px 20px 20px;isolation:isolate;}
-#home .toolcard h3{display:flex;align-items:center;gap:13px;min-height:62px;margin:0 0 10px;font-size:17px;line-height:1.35;}
-#home .toolcard h3:first-letter{font-size:0;color:transparent;}
-#home .toolcard h3::before{content:"";display:grid;place-items:center;flex:0 0 62px;width:62px;height:62px;border-radius:19px;font-size:31px;line-height:1;background:linear-gradient(145deg,#e8f7ff,#c9eaff);box-shadow:0 8px 18px #50c8ff35,inset 0 1px 0 #ffffff;}
-#home .toolcard:nth-child(1) h3::before{content:"⌕";color:#0879b9;background:linear-gradient(145deg,#e3f7ff,#aee6ff);box-shadow:0 8px 20px #50c8ff55;}
-#home .toolcard:nth-child(2) h3::before{content:"＋";color:#087b61;background:linear-gradient(145deg,#e4fff5,#9cf0d7);box-shadow:0 8px 20px #65e2c055;}
-#home .toolcard:nth-child(3) h3::before{content:"✦";color:#7251bd;background:linear-gradient(145deg,#f4eaff,#d9c4ff);box-shadow:0 8px 20px #b69aff66;}
-#home .toolcard:nth-child(4) h3::before{content:"◷";color:#b66a17;background:linear-gradient(145deg,#fff3dc,#ffd59a);box-shadow:0 8px 20px #ffbd7255;}
-#home .toolcard p{font-size:13px;line-height:1.6;}
-#home .toolcard:hover h3::before{transform:translateY(-3px) rotate(-4deg);}
-#home .toolcard h3::before{transition:transform .22s ease;}
-@media(max-width:760px){#home .toolcard{padding:14px 12px;}#home .toolcard h3{gap:9px;min-height:48px;font-size:13px;}#home .toolcard h3::before{flex-basis:48px;width:48px;height:48px;border-radius:15px;font-size:25px;}#home .toolcard p{font-size:11px;}}
-@media(max-width:380px){#home .toolcard h3{align-items:flex-start;flex-direction:column;}#home .toolcard h3::before{flex-basis:46px;width:46px;height:46px;}}
-/* Mã tổ hợp là thông tin phụ, nhường điểm nhấn cho tên ngành. */
-#cutoff .table tbody td:first-child .major-with-code{align-items:center!important;gap:8px!important;}
-#cutoff .table tbody td:first-child .major-with-code>span:first-child{flex:1 1 auto;min-width:0;}
-#cutoff .table tbody td:first-child .major-code-right{font-size:10px!important;font-weight:650!important;color:var(--muted)!important;opacity:.62;padding:3px 5px!important;border-color:transparent!important;background:var(--bg)!important;white-space:nowrap;}
-@media(max-width:760px){#cutoff .table tbody td:first-child .major-code-right{font-size:9px!important;opacity:.58;padding:2px 4px!important;}}
+/* Bốn biểu tượng công cụ trên trang chủ */
+#home .toolcard{padding:22px 20px 20px;isolation:isolate}
+#home .toolcard h3{display:flex;align-items:center;gap:13px;min-height:62px;margin:0 0 10px;font-size:17px;line-height:1.35}
+#home .toolcard h3:first-letter{font-size:0;color:transparent}
+#home .toolcard h3::before{content:"";display:grid;place-items:center;flex:0 0 62px;width:62px;height:62px;border-radius:19px;font-size:31px;line-height:1;background:linear-gradient(145deg,#e8f7ff,#c9eaff);box-shadow:0 8px 18px #50c8ff35,inset 0 1px 0 #ffffff}
+#home .toolcard:nth-child(1) h3::before{content:"⌕";color:#0879b9;background:linear-gradient(145deg,#e3f7ff,#aee6ff);box-shadow:0 8px 20px #50c8ff55}
+#home .toolcard:nth-child(2) h3::before{content:"＋";color:#087b61;background:linear-gradient(145deg,#e4fff5,#9cf0d7);box-shadow:0 8px 20px #65e2c055}
+#home .toolcard:nth-child(3) h3::before{content:"✦";color:#7251bd;background:linear-gradient(145deg,#f4eaff,#d9c4ff);box-shadow:0 8px 20px #b69aff66}
+#home .toolcard:nth-child(4) h3::before{content:"◷";color:#b66a17;background:linear-gradient(145deg,#fff3dc,#ffd59a);box-shadow:0 8px 20px #ffbd7255}
+#home .toolcard p{font-size:13px;line-height:1.6}
+#home .toolcard:hover h3::before{transform:translateY(-3px) rotate(-4deg)}
+#home .toolcard h3::before{transition:transform .22s ease}
+@media(max-width:760px){#home .toolcard{padding:14px 12px}#home .toolcard h3{gap:9px;min-height:48px;font-size:13px}#home .toolcard h3::before{flex-basis:48px;width:48px;height:48px;border-radius:15px;font-size:25px}#home .toolcard p{font-size:11px}}
+@media(max-width:380px){#home .toolcard h3{align-items:flex-start;flex-direction:column}#home .toolcard h3::before{flex-basis:46px;width:46px;height:46px}}
 
-/* Bản tinh chỉnh trang chủ và thông tin phụ trong thẻ điểm chuẩn. */
+/* Mã ngành là thông tin phụ, nhường điểm nhấn cho tên ngành. */
+#cutoff .table tbody td:first-child .major-with-code{align-items:center!important;gap:8px!important}
+#cutoff .table tbody td:first-child .major-with-code>span:first-child{flex:1 1 auto;min-width:0}
+#cutoff .table tbody td:first-child .major-code-right{font-size:10px!important;font-weight:650!important;color:var(--muted)!important;opacity:.62;padding:3px 5px!important;border-color:transparent!important;background:var(--bg)!important;white-space:nowrap}
+@media(max-width:760px){#cutoff .table tbody td:first-child .major-code-right{font-size:9px!important;opacity:.58;padding:2px 4px!important}}
+
+/* Tinh chỉnh trang chủ và thông tin phụ trong thẻ điểm chuẩn. */
 #home .toolcard h3{gap:0!important}
 #home .toolcard h3::before{content:"";flex:0 0 62px;width:62px;height:62px;margin-right:13px}
 @media(max-width:760px){#home .toolcard h3::before{flex-basis:48px;width:48px;height:48px;margin-right:9px}}
@@ -99,32 +65,8 @@
 #cutoff .table tbody td:nth-child(2)::before{color:var(--muted)!important;opacity:.8}
 #cutoff .table tbody td:first-child .major-code-right{font-size:13px!important;font-weight:800!important;opacity:.85!important;color:var(--muted)!important;padding:4px 7px!important}
 @media(max-width:760px){#cutoff .table tbody td:first-child .major-code-right{font-size:12px!important;opacity:.82!important}}
+
 .hero{grid-template-columns:1.05fr .95fr;gap:28px}
 .hero-art{display:block;width:100%;height:auto;margin:0;border:0;border-radius:0;background:none;text-shadow:none;opacity:1;overflow:visible}
 .hero-art::before,.hero-art::after{display:none}
-.featured-cutoffs{display:grid;gap:10px;width:100%;padding:15px;border:1px solid #ffffff30;border-radius:18px;background:linear-gradient(145deg,#ffffff18,#ffffff08);box-shadow:0 14px 30px #050d2028}
-.featured-head{display:flex;justify-content:space-between;align-items:center;gap:8px;color:#fff;font-size:14px;font-weight:850}
-.featured-head span{font-size:10px;font-weight:700;color:#bcefe2;background:#65e2c020;border:1px solid #65e2c050;border-radius:999px;padding:5px 7px;white-space:nowrap}
-.featured-item{display:grid;grid-template-columns:38px minmax(0,1fr) auto;align-items:center;gap:9px;padding:10px;border:1px solid #ffffff20;border-radius:12px;background:#08152a55;color:#fff;min-width:0}
-.featured-item img,.featured-fallback{width:36px;height:36px;object-fit:contain;background:#fff;border-radius:9px;padding:3px}
-.featured-fallback{display:grid;place-items:center;color:#17294d;font-size:9px;font-weight:900}
-.featured-school{font-size:11px;color:#c5d4eb;line-height:1.35}
-.featured-major{font-size:12px;font-weight:800;line-height:1.35;margin-top:2px;overflow-wrap:anywhere}
-.featured-score{font-size:19px;font-weight:950;color:#65e2c0;white-space:nowrap}
-.featured-foot{font-size:10px;line-height:1.4;color:#bdcbe0}
-@media(max-width:760px){.hero{grid-template-columns:1fr}.hero-art{display:block;width:100%;height:auto}.featured-cutoffs{padding:11px;gap:8px}.featured-item{grid-template-columns:32px minmax(0,1fr) auto;gap:7px;padding:8px}.featured-item img,.featured-fallback{width:30px;height:30px}.featured-score{font-size:17px}.featured-school{font-size:10px}.featured-major{font-size:11px}}
-
-/* Thẻ điểm chuẩn nổi bật: nền sáng, chữ rõ và nghiêng nhẹ tạo điểm nhấn. */
-.featured-cutoffs{position:relative;isolation:isolate;overflow:hidden;color:#15213a;background:radial-gradient(circle at 100% 0%,#c8f8eb 0,transparent 28%),linear-gradient(135deg,#fff 0%,#f7fffc 58%,#edf7ff 100%);border:1px solid #8ce8d2;border-top:4px solid #65e2c0;box-shadow:0 20px 42px #06152d38,0 0 0 5px #ffffff18;transform:rotate(-1.1deg);transition:transform .25s ease,box-shadow .25s ease}
-.featured-cutoffs:hover{transform:rotate(0deg) translateY(-2px);box-shadow:0 24px 48px #06152d40,0 0 0 5px #ffffff22}
-.featured-cutoffs::after{content:"✦";position:absolute;z-index:-1;right:10px;top:32px;font-size:76px;line-height:1;color:#65e2c0;opacity:.13;transform:rotate(14deg);pointer-events:none}
-.featured-head{color:#15213a;font-size:15px;letter-spacing:-.25px}
-.featured-head span{color:#087b61;background:#e4fff5;border-color:#9cebd8}
-.featured-item{position:relative;background:#ffffffed;border:1px solid #dbe9ed;box-shadow:0 5px 13px #17304d0b;color:#15213a;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
-.featured-item:hover{transform:translateX(3px);border-color:#65d8bd;box-shadow:0 8px 18px #17304d14}
-.featured-school{color:#60718a}
-.featured-major{color:#17294d}
-.featured-score{color:#087b61;text-shadow:0 2px 0 #65e2c022}
-.featured-foot{color:#65748a}
-@media(max-width:760px){.featured-cutoffs{transform:rotate(-.45deg)}.featured-cutoffs:hover{transform:rotate(0)}.featured-head{font-size:13px}}
-@media(prefers-reduced-motion:reduce){.featured-cutoffs,.featured-item{transition:none}}
+.featured-cutoffs{display:grid;gap:10px;width:100%;padding:15
