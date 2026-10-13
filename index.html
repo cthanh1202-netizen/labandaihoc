@@ -1,408 +1,176 @@
-
+```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#14243a">
-  <meta name="description" content="La Bàn Đại Học - Tra cứu điểm chuẩn, tính điểm xét tuyển và khám phá ngành nghề.">
-  <title>La Bàn Đại Học | Trợ lý tuyển sinh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101d3a">
+  <title>La Bàn Đại Học | Tra cứu tuyển sinh</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="topline">
-    <div class="container topbar">
-      <span>✦ <strong>LA BÀN ĐẠI HỌC</strong> · Đồng hành mùa tuyển sinh</span>
-      <time id="liveClock">Đang cập nhật...</time>
-    </div>
-  </div>
+<header>
+  <a class="brand" href="#" data-go="home">
+    <span class="compass">✦</span>
+    <span>LA BÀN ĐẠI HỌC<small>CHỌN TRƯỜNG · CHỌN NGÀNH</small></span>
+  </a>
+  <nav class="nav">
+    <button class="active" data-go="home">Trang chủ</button>
+    <button data-go="cutoff">Điểm chuẩn</button>
+    <button data-go="calculator">Tính điểm</button>
+    <button data-go="careers">Ngành nghề</button>
+    <button data-go="countdown">Ngày thi</button>
+    <button data-go="admin">Quản lý điểm</button>
+  </nav>
+</header>
 
-  <header class="header">
-    <div class="container nav">
-      <a class="brand" href="#home">
-        <span class="brand-icon">✦</span>
-        <span>La Bàn Đại Học<small>TRỢ LÝ TUYỂN SINH</small></span>
-      </a>
-
-      <nav class="nav-links">
-        <a href="#tools">Công cụ</a>
-        <a href="#lookup">Điểm chuẩn</a>
-        <a href="#calculator">Tính điểm</a>
-        <a href="#career">Ngành nghề</a>
-        <a href="#countdown">Ngày thi</a>
-      </nav>
-
-      <a class="button button-primary nav-button" href="#lookup">
-        Tra cứu ngay ↗
-      </a>
-    </div>
-  </header>
-
-  <main id="home">
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-content">
-          <span class="eyebrow"><span class="status-dot"></span> Trợ lý tuyển sinh của bạn</span>
-          <h1>Chọn đúng ngành.<br>Đi đúng <span>đường.</span></h1>
-          <p>
-            Tra cứu điểm chuẩn, tính điểm xét tuyển, khám phá ngành học
-            và lên kế hoạch ôn thi — tất cả trong một website.
-          </p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#tools">Khám phá công cụ ↗</a>
-            <a class="button button-outline" href="#lookup">Tra cứu điểm chuẩn</a>
-          </div>
-          <div class="hero-notes">
-            <span>✓ Giao diện dễ sử dụng</span>
-            <span>✓ Ưu tiên nguồn chính thức</span>
-            <span>✓ Tối ưu điện thoại</span>
-          </div>
-        </div>
-
-        <div class="preview-card">
-          <div class="preview-heading">
-            <div>
-              <span class="muted-label">KHÁM PHÁ DỮ LIỆU</span>
-              <h3>Điểm chuẩn đại học</h3>
-            </div>
-            <span class="demo-badge">BẢN DEMO</span>
-          </div>
-
-          <div class="preview-search">⌕ <span>Trường, ngành học, mã ngành...</span></div>
-
-          <div class="school-preview">
-            <div class="school-logo logo-blue">NEU</div>
-            <div class="school-info">
-              <strong>ĐH Kinh tế Quốc dân</strong>
-              <small>Kinh tế · Tài chính · Quản trị</small>
-            </div>
-            <span class="score-empty">—</span>
-          </div>
-
-          <div class="school-preview">
-            <div class="school-logo logo-green">VNU</div>
-            <div class="school-info">
-              <strong>ĐHQG Hà Nội</strong>
-              <small>Kinh doanh · Công nghệ</small>
-            </div>
-            <span class="score-empty">—</span>
-          </div>
-
-          <div class="school-preview">
-            <div class="school-logo logo-orange">HUST</div>
-            <div class="school-info">
-              <strong>ĐH Bách khoa Hà Nội</strong>
-              <small>Kỹ thuật · Máy tính</small>
-            </div>
-            <span class="score-empty">—</span>
-          </div>
-
-          <p class="preview-note">Điểm chưa hiển thị vì chưa kết nối dữ liệu chính thức.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="stats">
-      <div class="container stats-grid">
-        <div><strong>2024–2026</strong><span>Các năm cần tra cứu</span></div>
-        <div><strong>Toàn quốc</strong><span>Phạm vi trường học</span></div>
-        <div><strong>Nhiều phương thức</strong><span>Lựa chọn xét tuyển</span></div>
-        <div><strong>Miễn phí</strong><span>Các công cụ cơ bản</span></div>
-      </div>
-    </section>
-
-    <section class="section" id="tools">
-      <div class="container">
-        <div class="section-heading">
-          <div>
-            <span class="section-label">BẮT ĐẦU TỪ ĐÂY</span>
-            <h2>Công cụ cho hành trình<br>vào đại học</h2>
-          </div>
-          <p>Chọn công cụ phù hợp với điều bạn đang cần.</p>
-        </div>
-
-        <div class="tools-grid">
-          <a class="tool-card" href="#lookup">
-            <span class="tool-icon">⌕</span>
-            <h3>Tra cứu điểm chuẩn</h3>
-            <p>Tìm trường, ngành, mã ngành và điểm chuẩn theo năm.</p>
-            <span class="tool-link">Mở công cụ →</span>
-          </a>
-
-          <a class="tool-card" href="#calculator">
-            <span class="tool-icon green-icon">∑</span>
-            <h3>Tính điểm xét tuyển</h3>
-            <p>Tính tổng điểm tổ hợp và xem phần điểm cộng tham khảo.</p>
-            <span class="tool-link">Tính điểm →</span>
-          </a>
-
-          <a class="tool-card" href="#lookup">
-            <span class="tool-icon orange-icon">◎</span>
-            <h3>Chọn trường theo điểm</h3>
-            <p>Tìm hiểu điểm chuẩn đã xác minh để lên danh sách nguyện vọng.</p>
-            <span class="tool-link">Tìm trường →</span>
-          </a>
-
-          <a class="tool-card" href="#career">
-            <span class="tool-icon purple-icon">✳</span>
-            <h3>Khám phá ngành nghề</h3>
-            <p>Tham khảo nhóm ngành theo sở thích và lĩnh vực quan tâm.</p>
-            <span class="tool-link">Khám phá →</span>
-          </a>
-
-          <a class="tool-card" href="#lookup">
-            <span class="tool-icon cyan-icon">⇄</span>
-            <h3>So sánh phương thức</h3>
-            <p>Lọc theo thi THPT, HSA, TSA, học bạ và phương thức khác.</p>
-            <span class="tool-link">Xem phương thức →</span>
-          </a>
-
-          <a class="tool-card" href="#countdown">
-            <span class="tool-icon pink-icon">◷</span>
-            <h3>Đếm ngược ngày thi</h3>
-            <p>Chọn ngày thi và theo dõi thời gian còn lại.</p>
-            <span class="tool-link">Xem bộ đếm →</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="lookup-section" id="lookup">
-      <div class="container">
-        <div class="section-heading light-heading">
-          <div>
-            <span class="section-label">DỮ LIỆU TUYỂN SINH</span>
-            <h2>Tra cứu điểm chuẩn<br>theo cách của bạn</h2>
-          </div>
-          <p>Tìm theo trường, ngành, năm và phương thức xét tuyển.</p>
-        </div>
-
-        <div class="lookup-panel">
-          <form id="searchForm">
-            <div class="search-grid">
-              <div class="field">
-                <label for="schoolSearch">Trường đại học / học viện</label>
-                <input id="schoolSearch" list="schoolOptions" placeholder="Nhập tên trường..." autocomplete="off">
-                <datalist id="schoolOptions">
-                  <option value="Đại học Kinh tế Quốc dân">
-                  <option value="Đại học Quốc gia Hà Nội">
-                  <option value="Đại học Bách khoa Hà Nội">
-                  <option value="Trường Quốc tế - ĐHQGHN">
-                  <option value="Đại học Ngoại thương">
-                  <option value="Đại học Thương mại">
-                  <option value="Học viện Ngân hàng">
-                </datalist>
-              </div>
-
-              <div class="field">
-                <label for="majorSearch">Ngành học / mã ngành</label>
-                <input id="majorSearch" placeholder="VD: FinTech, Công nghệ tài chính">
-              </div>
-
-              <div class="field">
-                <label for="yearSelect">Năm tuyển sinh</label>
-                <select id="yearSelect">
-                  <option value="2026">2026</option>
-                  <option value="2025">2025</option>
-                  <option value="2024">2024</option>
-                </select>
-              </div>
-
-              <div class="field">
-                <label for="methodSelect">Phương thức xét tuyển</label>
-                <select id="methodSelect">
-                  <option value="all">Tất cả phương thức</option>
-                  <option value="THPT">Điểm thi tốt nghiệp THPT</option>
-                  <option value="HSA">Đánh giá năng lực (HSA)</option>
-                  <option value="TSA">Đánh giá tư duy (TSA)</option>
-                  <option value="HB">Xét học bạ</option>
-                  <option value="OTHER">Phương thức khác</option>
-                </select>
-              </div>
-            </div>
-
-            <button class="button button-primary search-button" type="submit">
-              ⌕ Tìm kiếm
-            </button>
-          </form>
-
-          <div class="results-heading">
-            <strong id="resultTitle">Kết quả tra cứu</strong>
-            <span id="resultCount">Chưa có dữ liệu chính thức</span>
-          </div>
-
-          <div id="results" class="results-list" aria-live="polite">
-            <div class="empty-state">
-              <span>⌕</span>
-              <strong>Sẵn sàng tra cứu</strong>
-              <p>Nhập tên trường hoặc ngành rồi bấm tìm kiếm.</p>
-              <small>Website chưa kết nối cơ sở dữ liệu điểm chuẩn chính thức.</small>
-            </div>
-          </div>
-
-          <p class="disclaimer">
-            Không hiển thị điểm chuẩn giả lập. Khi kết nối dữ liệu thật, mỗi kết quả cần có nguồn công bố rõ ràng.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="calculator">
-      <div class="container">
-        <div class="section-heading">
-          <div>
-            <span class="section-label">CÔNG CỤ NHANH</span>
-            <h2>Tính điểm xét tuyển</h2>
-          </div>
-          <p>Chọn tổ hợp, nhập điểm và xem tổng điểm tham khảo.</p>
-        </div>
-
-        <div class="calculator-grid">
-          <div class="calculator-intro">
-            <span class="tool-icon">∑</span>
-            <h3>Biết điểm của mình.<br>Chủ động bước tiếp.</h3>
-            <p>Điểm tính được chỉ mang tính tham khảo. Hãy kiểm tra đề án tuyển sinh của từng trường.</p>
-          </div>
-
-          <div class="calculator-panel">
-            <div class="field">
-              <label for="comboSelect">Tổ hợp xét tuyển</label>
-              <select id="comboSelect">
-                <option value="A00">A00 · Toán – Lí – Hóa</option>
-                <option value="A01">A01 · Toán – Lí – Anh</option>
-                <option value="B00">B00 · Toán – Hóa – Sinh</option>
-                <option value="C00">C00 · Văn – Sử – Địa</option>
-                <option value="C01">C01 · Toán – Văn – Lí</option>
-                <option value="C02">C02 · Toán – Văn – Hóa</option>
-                <option value="D01">D01 · Toán – Văn – Anh</option>
-                <option value="D07">D07 · Toán – Hóa – Anh</option>
-                <option value="D14">D14 · Văn – Sử – Anh</option>
-                <option value="D15">D15 · Văn – Địa – Anh</option>
-              </select>
-            </div>
-
-            <div class="subject-grid">
-              <div class="field">
-                <label id="label1" for="score1">Toán</label>
-                <input id="score1" type="number" min="0" max="10" step="0.01" placeholder="0–10">
-              </div>
-              <div class="field">
-                <label id="label2" for="score2">Vật lí</label>
-                <input id="score2" type="number" min="0" max="10" step="0.01" placeholder="0–10">
-              </div>
-              <div class="field">
-                <label id="label3" for="score3">Hóa học</label>
-                <input id="score3" type="number" min="0" max="10" step="0.01" placeholder="0–10">
-              </div>
-            </div>
-
-            <div class="extra-grid">
-              <div class="field">
-                <label for="prioritySelect">Khu vực ưu tiên</label>
-                <select id="prioritySelect">
-                  <option value="0">Không cộng điểm khu vực</option>
-                  <option value="0.25">Mức tham khảo +0,25</option>
-                  <option value="0.5">Mức tham khảo +0,50</option>
-                  <option value="0.75">Mức tham khảo +0,75</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="bonusInput">Điểm cộng khác</label>
-                <input id="bonusInput" type="number" min="0" max="10" step="0.01" value="0">
-              </div>
-            </div>
-
-            <button id="calculateButton" class="button button-primary full-button" type="button">
-              Tính điểm của tôi ↗
-            </button>
-
-            <div class="score-output" aria-live="polite">
-              <span>TỔNG ĐIỂM THAM KHẢO</span>
-              <strong id="totalScore">— / 30</strong>
-              <p id="scoreDetails">Nhập điểm 3 môn để bắt đầu.</p>
-            </div>
-
-            <p class="disclaimer">
-              Điểm ưu tiên và điểm cộng ở đây là phần tùy chọn tham khảo, không thay thế công thức chính thức.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="career">
-      <div class="container">
-        <div class="section-heading">
-          <div>
-            <span class="section-label">KHÁM PHÁ BẢN THÂN</span>
-            <h2>Tìm nhóm ngành bạn muốn tìm hiểu</h2>
-          </div>
-          <p>Đây là công cụ gợi ý ban đầu, không phải bài kiểm tra nghề nghiệp chuyên môn.</p>
-        </div>
-
-        <div class="career-panel">
-          <div class="field">
-            <label for="interestSelect">Bạn hứng thú với lĩnh vực nào?</label>
-            <select id="interestSelect">
-              <option value="data">Tài chính, kinh doanh và số liệu</option>
-              <option value="tech">Máy tính, công nghệ, lập trình</option>
-              <option value="people">Giao tiếp và làm việc với con người</option>
-              <option value="creative">Sáng tạo, nội dung, thiết kế</option>
-              <option value="science">Khoa học và giải quyết vấn đề</option>
-            </select>
-          </div>
-          <button class="button button-primary" id="careerButton" type="button">Gợi ý nhóm ngành ↗</button>
-          <div class="career-results" id="careerResults" aria-live="polite">
-            Chọn lĩnh vực rồi bấm nút để xem gợi ý.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="countdown">
-      <div class="container">
-        <div class="countdown-panel">
-          <div class="countdown-copy">
-            <span class="section-label">LÊN KẾ HOẠCH ÔN THI</span>
-            <h2>Đếm ngược đến ngày thi</h2>
-            <p>Chọn ngày thi để website tính thời gian còn lại. Hãy đối chiếu với lịch chính thức khi có thông báo.</p>
-            <div class="field date-field">
-              <label for="examDate">Ngày thi dự kiến</label>
-              <input id="examDate" type="date">
-            </div>
-            <button class="button button-primary" id="countdownButton" type="button">Cập nhật bộ đếm</button>
-            <p class="disclaimer" id="countdownNote">Chưa chọn ngày thi.</p>
-          </div>
-
-          <div class="timer-grid">
-            <div class="time-card"><strong id="days">—</strong><span>Ngày</span></div>
-            <div class="time-card"><strong id="hours">—</strong><span>Giờ</span></div>
-            <div class="time-card"><strong id="minutes">—</strong><span>Phút</span></div>
-            <div class="time-card"><strong id="seconds">—</strong><span>Giây</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-grid">
+<main>
+  <section id="home">
+    <div class="hero">
       <div>
-        <a class="brand footer-brand" href="#home">
-          <span class="brand-icon">✦</span>
-          <span>La Bàn Đại Học<small>TRỢ LÝ TUYỂN SINH</small></span>
-        </a>
-        <p>Hỗ trợ học sinh tìm hiểu lựa chọn đại học với thông tin minh bạch.</p>
+        <div class="eyebrow">MÙA TUYỂN SINH 2027</div>
+        <h1>Chọn đúng ngành.<br>Đi đúng đường.</h1>
+        <p>Tra cứu điểm chuẩn, tính điểm xét tuyển và khám phá ngành học phù hợp với bạn trên hành trình vào đại học.</p>
+        <div class="hero-actions">
+          <button class="btn" data-go="cutoff">Tra cứu điểm chuẩn ↗</button>
+          <button class="btn secondary" data-go="calculator">Tính điểm của tôi</button>
+        </div>
       </div>
-      <div class="footer-info">
-        <strong>Minh bạch dữ liệu</strong>
-        <p>Website không đại diện cho cơ quan tuyển sinh. Hãy kiểm tra thông báo chính thức từ trường.</p>
-        <small>© 2026 La Bàn Đại Học · Bản thử nghiệm</small>
+      <div class="featured-cutoffs">
+        <div class="featured-head">Điểm chuẩn tham khảo <span>DỮ LIỆU MẪU</span></div>
+        <article class="featured-item">
+          <span class="featured-fallback">NEU</span>
+          <div><div class="featured-school">Đại học Kinh tế Quốc dân</div><div class="featured-major">Kinh doanh / Tài chính</div></div>
+          <div class="featured-score">—</div>
+        </article>
+        <article class="featured-item">
+          <span class="featured-fallback">VNU</span>
+          <div><div class="featured-school">ĐHQG Hà Nội</div><div class="featured-major">Công nghệ / Kinh tế</div></div>
+          <div class="featured-score">—</div>
+        </article>
+        <article class="featured-item">
+          <span class="featured-fallback">HUST</span>
+          <div><div class="featured-school">Đại học Bách khoa Hà Nội</div><div class="featured-major">Kỹ thuật / Công nghệ</div></div>
+          <div class="featured-score">—</div>
+        </article>
+        <div class="featured-foot">Điểm chuẩn chính thức cần được xác minh theo năm, ngành và phương thức.</div>
       </div>
     </div>
-  </footer>
 
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <div class="stats">
+      <div class="stat"><strong>2024–2026</strong><span>Năm tuyển sinh</span></div>
+      <div class="stat"><strong>Toàn quốc</strong><span>Phạm vi tra cứu</span></div>
+      <div class="stat"><strong>Nhiều phương thức</strong><span>THPT, TSA, HSA, học bạ...</span></div>
+      <div class="stat"><strong>Miễn phí</strong><span>Công cụ dành cho học sinh</span></div>
+    </div>
+
+    <div class="sectionhead"><div><h2>Công cụ tuyển sinh</h2><p>Mọi thứ cần thiết trong một nơi.</p></div></div>
+    <div class="tools">
+      <article class="toolcard"><h3>Tra cứu điểm chuẩn</h3><p>Tìm trường, ngành, mã ngành, tổ hợp và phương thức xét tuyển.</p><button class="btn" data-go="cutoff">Mở tra cứu →</button></article>
+      <article class="toolcard"><h3>Tính điểm xét tuyển</h3><p>Ước tính tổng điểm tổ hợp và điểm ưu tiên.</p><button class="btn" data-go="calculator">Tính điểm →</button></article>
+      <article class="toolcard"><h3>Khám phá ngành nghề</h3><p>Tìm hiểu nhóm ngành theo sở thích và thế mạnh.</p><button class="btn" data-go="careers">Khám phá →</button></article>
+      <article class="toolcard"><h3>Đếm ngược ngày thi</h3><p>Theo dõi thời gian còn lại để chủ động ôn tập.</p><button class="btn" data-go="countdown">Xem lịch thi →</button></article>
+    </div>
+  </section>
+
+  <section id="cutoff" class="hidden">
+    <div class="sectionhead"><div><h2>Tra cứu điểm chuẩn đại học</h2><p>Chọn bộ lọc để tìm dữ liệu phù hợp.</p></div></div>
+    <div class="panel">
+      <div class="searchrow">
+        <div><label for="q">Tìm trường, ngành, mã ngành</label><input id="q" placeholder="VD: Công nghệ thông tin"></div>
+        <div><label for="year">Năm</label><select id="year"><option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option></select></div>
+        <div><label for="method">Phương thức</label><select id="method"><option value="all">Tất cả</option><option value="THPT">Điểm thi THPT</option><option value="TSA">ĐGTD (TSA)</option><option value="HSA">ĐGNL (HSA)</option><option value="HOCBA">Học bạ</option><option value="OTHER">Khác</option></select></div>
+        <div><label for="school">Trường</label><select id="school"><option value="all">Tất cả trường</option><option value="VNU">Đại học Công nghệ – ĐHQG Hà Nội</option><option value="HUST">Đại học Bách khoa Hà Nội</option></select></div>
+      </div>
+      <div class="fields two filters-extra">
+        <div><label for="cutcombo">Tổ hợp / bài thi</label><select id="cutcombo"><option value="all">Tất cả</option><option>A00</option><option>A01</option><option>B00</option><option>C00</option><option>D01</option><option>D07</option><option value="K00">TSA</option><option value="K01">Khác</option></select></div>
+        <div><label for="cutmax">Điểm tối đa muốn xem</label><select id="cutmax"><option value="all">Tất cả mức điểm</option><option value="20">20 điểm</option><option value="22">22 điểm</option><option value="25">25 điểm</option><option value="27">27 điểm</option><option value="30">30 điểm</option><option value="80">80 điểm</option></select></div>
+      </div>
+      <p id="matchcount" class="subtle"></p>
+      <div class="tablewrap">
+        <table class="table">
+          <thead><tr><th>Mã ngành</th><th>Ngành</th><th>Tổ hợp</th><th>Phương thức</th><th>Điểm chuẩn</th><th>Nguồn</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <div id="empty" class="empty hidden">Không tìm thấy dữ liệu phù hợp. Hãy thử thay đổi bộ lọc.</div>
+      </div>
+      <div class="notice">Đây là bản demo với dữ liệu mẫu, chưa phải danh sách đầy đủ toàn quốc. Chỉ sử dụng dữ liệu đã kiểm chứng từ nguồn tuyển sinh chính thức.</div>
+    </div>
+  </section>
+
+  <section id="calculator" class="hidden">
+    <div class="sectionhead"><div><h2>Tính điểm xét tuyển</h2><p>Kết quả chỉ mang tính tham khảo; cần đối chiếu quy chế của trường.</p></div></div>
+    <div class="toolcard">
+      <div class="fields">
+        <div><label for="combo">Tổ hợp</label><select id="combo"><option>A00</option><option>A01</option><option>B00</option><option>C00</option><option>D01</option><option>D07</option></select></div>
+        <div><label for="priority">Điểm ưu tiên (ước tính)</label><input id="priority" type="number" min="0" max="3" step="0.25" value="0"></div>
+        <div><label for="bonus">Điểm cộng</label><input id="bonus" type="number" min="0" max="3" step="0.25" value="0"></div>
+      </div>
+      <div class="fields">
+        <div><label id="l1" for="s1">Toán</label><input id="s1" type="number" min="0" max="10" step="0.1" placeholder="0–10"></div>
+        <div><label id="l2" for="s2">Vật lí</label><input id="s2" type="number" min="0" max="10" step="0.1" placeholder="0–10"></div>
+        <div><label id="l3" for="s3">Hóa học</label><input id="s3" type="number" min="0" max="10" step="0.1" placeholder="0–10"></div>
+      </div>
+      <button id="calc" class="btn">Tính tổng điểm</button>
+      <div id="calcresult" class="result hidden" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section id="careers" class="hidden">
+    <div class="sectionhead"><div><h2>Khám phá ngành nghề</h2><p>Chọn nhóm sở thích để xem các hướng học tập có thể tìm hiểu.</p></div></div>
+    <div class="panel">
+      <div class="fields two">
+        <div><label for="interest">Nhóm sở thích</label><select id="interest"><option value="data">Công nghệ và dữ liệu</option><option value="business">Kinh doanh và tài chính</option><option value="people">Làm việc với con người</option><option value="design">Sáng tạo và truyền thông</option><option value="science">Khoa học tự nhiên</option></select></div>
+        <div><label>&nbsp;</label><button class="btn" id="suggest">Gợi ý ngành</button></div>
+      </div>
+      <div class="careergrid" id="careerresults"></div>
+      <p class="subtle">Gợi ý chỉ để tham khảo, không phải đánh giá năng lực hay cam kết nghề nghiệp.</p>
+    </div>
+  </section>
+
+  <section id="countdown" class="hidden">
+    <div class="sectionhead"><div><h2>Đếm ngược kỳ thi</h2><p>Điều chỉnh ngày dự kiến theo lịch thi chính thức khi được công bố.</p></div></div>
+    <div class="panel">
+      <label for="examdate">Ngày thi dự kiến</label>
+      <input id="examdate" type="date" value="2027-06-01">
+      <div class="countdown">
+        <div class="timebox"><strong id="days">—</strong><span>Ngày</span></div>
+        <div class="timebox"><strong id="hours">—</strong><span>Giờ</span></div>
+        <div class="timebox"><strong id="minutes">—</strong><span>Phút</span></div>
+        <div class="timebox"><strong id="seconds">—</strong><span>Giây</span></div>
+      </div>
+      <div class="result"><strong>“Mỗi ngày tiến một chút, tương lai sẽ gần hơn.”</strong></div>
+      <label for="plan">Mục tiêu học tập hôm nay</label>
+      <input id="plan" placeholder="VD: Ôn 20 câu Toán và 15 từ tiếng Anh">
+      <button id="saveplan" class="btn">Ghi mục tiêu</button>
+      <div id="planresult" class="result hidden"></div>
+    </div>
+  </section>
+
+  <section id="admin" class="hidden">
+    <div class="sectionhead"><div><h2>Quản lý điểm chuẩn</h2><p>Nhập và xuất dữ liệu mẫu bằng CSV.</p></div></div>
+    <div class="panel">
+      <div class="notice">Dữ liệu lưu trên trình duyệt của máy này. Đây chưa phải hệ thống đăng nhập quản trị và không tự đồng bộ lên các máy khác. Chỉ nhập dữ liệu có nguồn chính thức.</div>
+      <div class="fields">
+        <div><label for="bulkYear">Năm</label><select id="bulkYear"><option>2026</option><option>2025</option><option>2024</option></select></div>
+        <div><label for="bulkMethod">Phương thức mặc định</label><select id="bulkMethod"><option value="THPT">Điểm thi THPT</option><option value="TSA">ĐGTD (TSA)</option><option value="HSA">ĐGNL (HSA)</option><option value="HOCBA">Học bạ</option><option value="OTHER">Khác</option></select></div>
+        <div><label for="bulkSchool">Tên trường mặc định</label><input id="bulkSchool" placeholder="Tên trường"></div>
+      </div>
+      <label for="bulkCsv" style="margin-top:14px">Dữ liệu CSV (mỗi dòng một ngành)</label>
+      <textarea id="bulkCsv" rows="8" placeholder="Trường,Mã trường,Mã ngành,Ngành,Tổ hợp,Phương thức,Năm,Điểm chuẩn,URL nguồn"></textarea>
+      <div class="fields two">
+        <button id="importBulk" class="btn">Nhập dữ liệu</button>
+        <button id="downloadBulk" class="btn secondary">Xuất CSV</button>
+      </div>
+      <div id="bulkStatus" class="result hidden" aria-live="polite"></div>
+      <button id="clearBulk" class="btn secondary">Xóa dữ liệu đã nhập</button>
+      <button id="csvExample" class="btn secondary">Điền dòng mẫu</button>
+    </div>
+  </section>
+</main>
+
+<footer>✦ MÙA TUYỂN SINH · Thông tin rõ ràng, chọn trường tự tin</footer>
+<script src="script.js"></script>
 </body>
 </html>
+```
